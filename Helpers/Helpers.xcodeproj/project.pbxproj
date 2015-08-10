@@ -10,8 +10,11 @@
 		3607FE761B6C86DC005EF31E /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3607FE751B6C86DC005EF31E /* DateHelper.swift */; };
 		3607FE781B6C8CFF005EF31E /* DateHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3607FE771B6C8CFF005EF31E /* DateHelperTests.swift */; };
 		3607FE791B6C8EC4005EF31E /* DateHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3607FE751B6C86DC005EF31E /* DateHelper.swift */; };
-		3642A0FE1B706872006B0F98 /* XCTest+PAssert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3642A0FD1B706872006B0F98 /* XCTest+PAssert.swift */; };
 		366F8B8F1B71BE91001B912A /* UIView+Ex.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F8B8E1B71BE91001B912A /* UIView+Ex.swift */; };
+		366F8B911B71ED46001B912A /* PhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F8B901B71ED46001B912A /* PhotosHelper.swift */; };
+		366F8B931B71F12F001B912A /* PhotosHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F8B921B71F12F001B912A /* PhotosHelperTests.swift */; };
+		366F8B941B71F197001B912A /* PhotosHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 366F8B901B71ED46001B912A /* PhotosHelper.swift */; };
+		367B35301B72FF08003AC601 /* PAssert.swift in Sources */ = {isa = PBXBuildFile; fileRef = 367B352F1B72FF08003AC601 /* PAssert.swift */; };
 		36CD17F11B6B3E8100DBB95C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD17F01B6B3E8100DBB95C /* AppDelegate.swift */; };
 		36CD17F31B6B3E8100DBB95C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD17F21B6B3E8100DBB95C /* ViewController.swift */; };
 		36CD17F61B6B3E8100DBB95C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 36CD17F41B6B3E8100DBB95C /* Main.storyboard */; };
@@ -20,6 +23,9 @@
 		36CD18071B6B3E8100DBB95C /* FileManagerHelperTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD18061B6B3E8100DBB95C /* FileManagerHelperTests.swift */; };
 		36CD181A1B6B440700DBB95C /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD18191B6B440700DBB95C /* FileManagerHelper.swift */; };
 		36CD181B1B6B832F00DBB95C /* FileManagerHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36CD18191B6B440700DBB95C /* FileManagerHelper.swift */; };
+		36EDF96E1B78924D00E1961A /* Photos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 36EDF96D1B78924D00E1961A /* Photos.framework */; };
+		36EDF9711B78B03B00E1961A /* nadeusagi.mov in Resources */ = {isa = PBXBuildFile; fileRef = 36EDF96F1B78B03B00E1961A /* nadeusagi.mov */; };
+		36EDF9721B78B03B00E1961A /* nadeusagi.png in Resources */ = {isa = PBXBuildFile; fileRef = 36EDF9701B78B03B00E1961A /* nadeusagi.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,8 +41,10 @@
 /* Begin PBXFileReference section */
 		3607FE751B6C86DC005EF31E /* DateHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelper.swift; sourceTree = "<group>"; };
 		3607FE771B6C8CFF005EF31E /* DateHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateHelperTests.swift; sourceTree = "<group>"; };
-		3642A0FD1B706872006B0F98 /* XCTest+PAssert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTest+PAssert.swift"; sourceTree = "<group>"; };
 		366F8B8E1B71BE91001B912A /* UIView+Ex.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Ex.swift"; sourceTree = "<group>"; };
+		366F8B901B71ED46001B912A /* PhotosHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosHelper.swift; sourceTree = "<group>"; };
+		366F8B921B71F12F001B912A /* PhotosHelperTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotosHelperTests.swift; sourceTree = "<group>"; };
+		367B352F1B72FF08003AC601 /* PAssert.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PAssert.swift; path = ../../../../../Dropbox/__keygx/Doc/_ios/_Test/PAssertSample/PAssertSampleTests/PAssert/PAssert.swift; sourceTree = "<group>"; };
 		36CD17EB1B6B3E8100DBB95C /* Helpers.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Helpers.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		36CD17EF1B6B3E8100DBB95C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36CD17F01B6B3E8100DBB95C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -48,6 +56,9 @@
 		36CD18051B6B3E8100DBB95C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		36CD18061B6B3E8100DBB95C /* FileManagerHelperTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileManagerHelperTests.swift; sourceTree = "<group>"; };
 		36CD18191B6B440700DBB95C /* FileManagerHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileManagerHelper.swift; sourceTree = "<group>"; };
+		36EDF96D1B78924D00E1961A /* Photos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Photos.framework; path = System/Library/Frameworks/Photos.framework; sourceTree = SDKROOT; };
+		36EDF96F1B78B03B00E1961A /* nadeusagi.mov */ = {isa = PBXFileReference; lastKnownFileType = video.quicktime; path = nadeusagi.mov; sourceTree = "<group>"; };
+		36EDF9701B78B03B00E1961A /* nadeusagi.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = nadeusagi.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -55,6 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36EDF96E1B78924D00E1961A /* Photos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,7 +83,7 @@
 		3642A0FC1B706872006B0F98 /* PAssert */ = {
 			isa = PBXGroup;
 			children = (
-				3642A0FD1B706872006B0F98 /* XCTest+PAssert.swift */,
+				367B352F1B72FF08003AC601 /* PAssert.swift */,
 			);
 			path = PAssert;
 			sourceTree = "<group>";
@@ -84,9 +96,19 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
+		367B35311B730C07003AC601 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				36EDF96F1B78B03B00E1961A /* nadeusagi.mov */,
+				36EDF9701B78B03B00E1961A /* nadeusagi.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		36CD17E21B6B3E8100DBB95C = {
 			isa = PBXGroup;
 			children = (
+				36EDF96D1B78924D00E1961A /* Photos.framework */,
 				36CD17ED1B6B3E8100DBB95C /* Helpers */,
 				36CD18031B6B3E8100DBB95C /* HelpersTests */,
 				36CD17EC1B6B3E8100DBB95C /* Products */,
@@ -127,10 +149,12 @@
 		36CD18031B6B3E8100DBB95C /* HelpersTests */ = {
 			isa = PBXGroup;
 			children = (
+				367B35311B730C07003AC601 /* Resources */,
 				366F8B8D1B71BE91001B912A /* Extensions */,
 				3642A0FC1B706872006B0F98 /* PAssert */,
 				36CD18061B6B3E8100DBB95C /* FileManagerHelperTests.swift */,
 				3607FE771B6C8CFF005EF31E /* DateHelperTests.swift */,
+				366F8B921B71F12F001B912A /* PhotosHelperTests.swift */,
 				36CD18041B6B3E8100DBB95C /* Supporting Files */,
 			);
 			path = HelpersTests;
@@ -149,6 +173,7 @@
 			children = (
 				36CD18191B6B440700DBB95C /* FileManagerHelper.swift */,
 				3607FE751B6C86DC005EF31E /* DateHelper.swift */,
+				366F8B901B71ED46001B912A /* PhotosHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -197,6 +222,7 @@
 		36CD17E31B6B3E8100DBB95C /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				LastSwiftUpdateCheck = 0700;
 				LastUpgradeCheck = 0640;
 				ORGANIZATIONNAME = keygx;
 				TargetAttributes = {
@@ -243,6 +269,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36EDF9711B78B03B00E1961A /* nadeusagi.mov in Resources */,
+				36EDF9721B78B03B00E1961A /* nadeusagi.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -254,6 +282,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3607FE761B6C86DC005EF31E /* DateHelper.swift in Sources */,
+				366F8B911B71ED46001B912A /* PhotosHelper.swift in Sources */,
 				36CD17F31B6B3E8100DBB95C /* ViewController.swift in Sources */,
 				36CD17F11B6B3E8100DBB95C /* AppDelegate.swift in Sources */,
 				36CD181A1B6B440700DBB95C /* FileManagerHelper.swift in Sources */,
@@ -264,9 +293,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				366F8B931B71F12F001B912A /* PhotosHelperTests.swift in Sources */,
 				36CD18071B6B3E8100DBB95C /* FileManagerHelperTests.swift in Sources */,
+				367B35301B72FF08003AC601 /* PAssert.swift in Sources */,
+				366F8B941B71F197001B912A /* PhotosHelper.swift in Sources */,
 				3607FE791B6C8EC4005EF31E /* DateHelper.swift in Sources */,
-				3642A0FE1B706872006B0F98 /* XCTest+PAssert.swift in Sources */,
 				36CD181B1B6B832F00DBB95C /* FileManagerHelper.swift in Sources */,
 				3607FE781B6C8CFF005EF31E /* DateHelperTests.swift in Sources */,
 				366F8B8F1B71BE91001B912A /* UIView+Ex.swift in Sources */,
@@ -339,7 +370,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -378,7 +409,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.4;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";

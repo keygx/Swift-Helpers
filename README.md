@@ -2,6 +2,10 @@
 
 Helper libraries in Swift
 
+* DateHelper.swift
+* FileManagerHelper.swift
+* PhotosHelper.swift
+ 
 
 ## Requirements
 - Swift 1.2
