@@ -14,7 +14,7 @@ Helper libraries in Swift
 
 ## License
 
-PAssert is released under the MIT license. See LICENSE for details.
+Swift-Helpers is released under the MIT license. See LICENSE for details.
 
 
 ## Author
