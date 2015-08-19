@@ -43,7 +43,7 @@ class PhotosHelper {
             }
         }
     
-        var assetIDs = allIDs.reduce([String](), combine: {
+        let assetIDs = allIDs.reduce([String](), combine: {
             var temp = $0
             let identifier = $1
             let count: Int = temp.filter({ $0 == identifier }).count
@@ -207,9 +207,9 @@ class PhotosHelper {
     // Metadata
     func metadata(url: NSURL) -> NSDictionary {
         
-        let source: CGImageSourceRef = CGImageSourceCreateWithURL(url, nil)
-        let dicRef: CFDictionaryRef = CGImageSourceCopyPropertiesAtIndex(source, 0, nil)
-        let metadata: AnyObject = CFBridgingRetain(dicRef)
+        let source: CGImageSourceRef = CGImageSourceCreateWithURL(url, nil)!
+        let dicRef: CFDictionaryRef = CGImageSourceCopyPropertiesAtIndex(source, 0, nil)!
+        let metadata: AnyObject = CFBridgingRetain(dicRef)!
         
         return metadata as! NSDictionary
     }

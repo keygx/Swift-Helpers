@@ -59,35 +59,35 @@ class DateHelper {
     /**
         date1 == date2
     */
-    func isSameDate(#date1: NSDate, date2: NSDate) -> Bool {
+    func isSameDate(date1 date1: NSDate, date2: NSDate) -> Bool {
         
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         
-        if let cal = calendar {
-            return cal.isDate(date1, inSameDayAsDate: date2)
-        } else {
+        guard let cal = calendar else {
             return false
         }
+        
+        return cal.isDate(date1, inSameDayAsDate: date2)
     }
     
     /**
         date1 < date2
     */
-    func isNewDate(#date1: NSDate, date2: NSDate) -> Bool {
+    func isNewDate(date1 date1: NSDate, date2: NSDate) -> Bool {
     
         let calendar = NSCalendar(calendarIdentifier: NSCalendarIdentifierGregorian)
         
-        if let cal = calendar {
-            let res: NSComparisonResult = cal.compareDate(date1, toDate: date2, toUnitGranularity: NSCalendarUnit.CalendarUnitSecond)
-            switch res {
-            case .OrderedAscending:
-                return true
-            case .OrderedDescending:
-                return false
-            case .OrderedSame:
-                return false
-            }
-        } else {
+        guard let cal = calendar else {
+            return false
+        }
+        
+        let res: NSComparisonResult = cal.compareDate(date1, toDate: date2, toUnitGranularity: NSCalendarUnit.Second)
+        switch res {
+        case .OrderedAscending:
+            return true
+        case .OrderedDescending:
+            return false
+        case .OrderedSame:
             return false
         }
     }

@@ -43,14 +43,14 @@ class PhotosHelperTests: XCTestCase {
         let path = NSBundle(forClass: self.dynamicType).pathForResource("nadeusagi", ofType: "png")
         let url = NSURL(fileURLWithPath: path!)
         
-        let metadata: NSDictionary = PhotosHelper().metadata(url!)
+        let metadata: NSDictionary = PhotosHelper().metadata(url)
         PAssert(metadata["ColorModel"] as! String, ==, "RGB")
         PAssert(metadata["PixelHeight"] as! NSNumber, ==, NSNumber(integer: 640))
         PAssert(metadata["PixelWidth"] as! NSNumber, ==, NSNumber(integer: 960))
         
         let expectation = expectationWithDescription("Save Image from URL")
         
-        PhotosHelper().saveImageToPhotosLibrary(url!) { (success, error) in
+        PhotosHelper().saveImageToPhotosLibrary(url) { (success, error) in
             PAssert(success, ==, true)
             expectation.fulfill()
         }
@@ -64,7 +64,7 @@ class PhotosHelperTests: XCTestCase {
         
         let expectation = expectationWithDescription("Save Video from URL")
         
-        PhotosHelper().saveVideoToPhotosLibrary(url!) { (success, error) in
+        PhotosHelper().saveVideoToPhotosLibrary(url) { (success, error) in
             PAssert(success, ==, true)
             expectation.fulfill()
         }
@@ -83,15 +83,18 @@ class PhotosHelperTests: XCTestCase {
         let expectation = expectationWithDescription("metadata")
         
         assetList[assetList.count-1].requestContentEditingInputWithOptions(nil) { (contentEditingInput, info) -> Void in
-            let metadata: NSDictionary = PhotosHelper().metadata(contentEditingInput.fullSizeImageURL)
-            //println(meta)
             
-            // Metadata
-            PAssert(metadata["ColorModel"] as! String, ==, "RGB")
-            PAssert(metadata["PixelHeight"] as! NSNumber, ==, NSNumber(integer: 600))
-            PAssert(metadata["PixelWidth"] as! NSNumber, ==, NSNumber(integer: 600))
-            
-            expectation.fulfill()
+            if let contentEditingInput = contentEditingInput {
+                let metadata: NSDictionary = PhotosHelper().metadata(contentEditingInput.fullSizeImageURL!)
+                //println(meta)
+                
+                // Metadata
+                PAssert(metadata["ColorModel"] as! String, ==, "RGB")
+                PAssert(metadata["PixelHeight"] as! NSNumber, ==, NSNumber(integer: 600))
+                PAssert(metadata["PixelWidth"] as! NSNumber, ==, NSNumber(integer: 600))
+                
+                expectation.fulfill()
+            }
         }
         
         waitForExpectationsWithTimeout(5.0, handler: nil)
@@ -104,7 +107,7 @@ class PhotosHelperTests: XCTestCase {
         
         let startIndex = assetList.count-2-1
         let endIndex = assetList.count-1
-        var deleteAssets: [PHAsset] = Array(assetList[startIndex...endIndex])
+        let deleteAssets: [PHAsset] = Array(assetList[startIndex...endIndex])
         
         let expectation = expectationWithDescription("delete")
         

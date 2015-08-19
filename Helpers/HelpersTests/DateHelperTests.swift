@@ -27,10 +27,10 @@ class DateHelperTests: XCTestCase {
         
         let d = DateHelper()
         let date: NSDate? = d.dateFromString(dateTime)
-        println(date)
+        print(date)
         
         let dateStr: String = d.stringFromDate(date!)
-        println(dateStr)
+        print(dateStr)
         
         PAssert(dateTime, ==, dateStr)
     }
@@ -39,10 +39,10 @@ class DateHelperTests: XCTestCase {
         let d = DateHelper()
         
         let date1 = d.dateFromUnixTime(1438587664.71403)
-        println(date1)
+        print(date1)
         
         let date2 = d.unixTimeFromDate(date1!)
-        println(date2)
+        print(date2)
         
         PAssert(1438587664.71403, ==, date2)
     }

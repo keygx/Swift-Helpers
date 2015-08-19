@@ -12,7 +12,11 @@ extension UIView {
     func toImage() -> UIImage? {
     
         UIGraphicsBeginImageContextWithOptions(self.frame.size, false, 0.0)
-        let context = UIGraphicsGetCurrentContext()
+        
+        guard let context = UIGraphicsGetCurrentContext() else {
+            return nil
+        }
+        
         CGContextTranslateCTM(context, 0.0, 0.0)
         self.layer.renderInContext(context)
         let image = UIGraphicsGetImageFromCurrentImageContext()

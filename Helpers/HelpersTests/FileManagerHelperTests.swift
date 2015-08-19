@@ -19,8 +19,8 @@ class FileManagerHelperTests: XCTestCase {
         
         fileManager = FileManagerHelper()
         
-        testPath = fileManager!.documentDirectory(path: "/TEST")
-        println(testPath)
+        testPath = fileManager!.documentDirectory("/TEST")
+        print(testPath)
     }
     
     override func tearDown() {
@@ -30,9 +30,6 @@ class FileManagerHelperTests: XCTestCase {
     
     func test_A_DocumentDirectory() {
         
-        //println(fileManager.documentDirectory())
-        //println(fileManager.documentDirectory(path: "/APP_NAME/Cache/"))
-        
         let pattern = "^/.+/.+/Library/Developer/CoreSimulator/Devices/.+/data/Containers/Data/Application/.+/.+"
         let match = fileManager?.documentDirectory().rangeOfString(pattern, options: .RegularExpressionSearch)
         
@@ -41,11 +38,8 @@ class FileManagerHelperTests: XCTestCase {
     
     func test_B_TmpDocument() {
         
-        //println(fileManager.tmpDirectory())
-        //println(fileManager.tmpDirectory(path: "/APP_NAME/Temp/"))
-        
         let pattern = "^/.+/.+/Library/Developer/CoreSimulator/Devices/.+/data/Containers/Data/Application/.+/.+"
-        let match = fileManager?.tmpDirectory(path: "/APP_NAME/Temp/").rangeOfString(pattern, options: .RegularExpressionSearch)
+        let match = fileManager?.tmpDirectory("/APP_NAME/Temp/").rangeOfString(pattern, options: .RegularExpressionSearch)
         
         PAssert(match?.isEmpty, ==, false)
     }
@@ -87,15 +81,21 @@ class FileManagerHelperTests: XCTestCase {
         
         let view1 = UIView(frame: CGRectMake(0, 0, 100, 100))
         view1.backgroundColor = UIColor.redColor()
-        let imageData1 = NSData(data: UIImagePNGRepresentation(view1.toImage()))
-        let path1 = fileManager?.documentDirectory(path: "/TEST/img1.png")
-        fileManager?.writeFile(path1!, data: imageData1)
+        
+        if let viewImage1: UIImage = view1.toImage() {
+            let imageData1 = NSData(data: UIImagePNGRepresentation(viewImage1)!)
+            let path1 = fileManager?.documentDirectory("/TEST/img1.png")
+            fileManager?.writeFile(path1!, data: imageData1)
+        }
         
         let view2 = UIView(frame: CGRectMake(0, 0, 100, 100))
         view2.backgroundColor = UIColor.blueColor()
-        let imageData2 = NSData(data: UIImagePNGRepresentation(view2.toImage()))
-        let path2 = fileManager?.documentDirectory(path: "/TEST/img2.png")
-        fileManager?.writeFile(path2!, data: imageData2)
+        
+        if let viewImage2: UIImage = view2.toImage() {
+            let imageData2 = NSData(data: UIImagePNGRepresentation(viewImage2)!)
+            let path2 = fileManager?.documentDirectory("/TEST/img2.png")
+            fileManager?.writeFile(path2!, data: imageData2)
+        }
         
         let list: [String]? = fileManager?.fileNameList(testPath)
         
@@ -116,12 +116,12 @@ class FileManagerHelperTests: XCTestCase {
     
     func test_H_RemoveAll() {
         
-        let path1 = fileManager?.documentDirectory(path: "/TEST/img1.png")
+        let path1 = fileManager?.documentDirectory("/TEST/img1.png")
         let imageData1 = fileManager?.readFile(path1!)
         
         PAssert(imageData1, !=, nil)
         
-        let path2 = fileManager?.documentDirectory(path: "/TEST/img2.png")
+        let path2 = fileManager?.documentDirectory("/TEST/img2.png")
         let imageData2 = fileManager?.readFile(path2!)
         
         PAssert(imageData2, !=, nil)
@@ -135,13 +135,16 @@ class FileManagerHelperTests: XCTestCase {
         
         let view3 = UIView(frame: CGRectMake(0, 0, 100, 100))
         view3.backgroundColor = UIColor.greenColor()
-        let imageData3 = NSData(data: UIImagePNGRepresentation(view3.toImage()))
-        let path3 = fileManager?.documentDirectory(path: "/TEST/img3.png")
-        fileManager?.writeFile(path3!, data: imageData3)
         
-        let list: [String]? = fileManager?.removePastTime(testPath, elapsedTime: 0)
-        
-        PAssert(list?.count, ==, 1)
+        if let viewImage3: UIImage = view3.toImage() {
+            let imageData3 = NSData(data: UIImagePNGRepresentation(viewImage3)!)
+            let path3 = fileManager?.documentDirectory("/TEST/img3.png")
+            fileManager?.writeFile(path3!, data: imageData3)
+            
+            let list: [String]? = fileManager?.removePastTime(testPath, elapsedTime: 0)
+            
+            PAssert(list?.count, ==, 1)
+        }
     }
     
     func test_J_Remove() {

@@ -24,7 +24,7 @@ class ViewController: UIViewController {
     func initialize() {
         
         PhotosHelper().autorizedPhotoStatus() { status in
-            println(status.hashValue)
+            print(status.hashValue)
             switch status {
             case .NotDetermined:
                 fallthrough
@@ -33,12 +33,12 @@ class ViewController: UIViewController {
                     //
                 }
             default:
-                println("")
+                print("")
             }
         }
         
         PhotosHelper().autorizedCameraStatus() { status in
-            println(status.hashValue)
+            print(status.hashValue)
         }
     }
 }

@@ -8,7 +8,7 @@
 import XCTest
 
 // MARK: - PAssert
-public func PAssert<T>(@autoclosure lhs: () -> T, comparison: (T, T) -> Bool, @autoclosure rhs: () -> T,
+public func PAssert<T>(@autoclosure lhs: () -> T, _ comparison: (T, T) -> Bool, @autoclosure _ rhs: () -> T,
                 filePath: String = __FILE__, lineNumber: Int = __LINE__, function: String = __FUNCTION__) {
         
         let pa = PAssertHelper()
@@ -27,9 +27,9 @@ public func PAssert<T>(@autoclosure lhs: () -> T, comparison: (T, T) -> Bool, @a
                 XCTFail(out, file: filePath, line:UInt(lineNumber))
             }
         } else {
-            println("")
-            println("[\(pa.getDateTime()) \(pa.getFilename(filePath)):\(lineNumber) \(function)] \(lhs())")
-            println("")
+            print("")
+            print("[\(pa.getDateTime()) \(pa.getFilename(filePath)):\(lineNumber) \(function)] \(lhs())")
+            print("")
         }
 }
 
@@ -49,10 +49,16 @@ private class PAssertHelper {
     // MARK: - read source file
     private func readSource(filePath: String) -> String {
         var error : NSError?
-        var source = String(contentsOfFile:filePath, encoding: NSUTF8StringEncoding, error: &error)
+        var source: String?
+        do {
+            source = try String(contentsOfFile:filePath, encoding: NSUTF8StringEncoding)
+        } catch let error1 as NSError {
+            error = error1
+            source = nil
+        }
         
         if error != nil {
-            println("error: \(error)")
+            print("error: \(error)")
         }
         
         if let str = source {
@@ -91,7 +97,6 @@ private class PAssertHelper {
         var lineIndex = 1
         var startBracket = 0
         var endBracket = 0
-        var comma = 0
         
         source.enumerateLines {
             line, stop in
@@ -99,7 +104,7 @@ private class PAssertHelper {
             if lineIndex >= lineNumber {
                 tmpLine = line.stringByTrimmingCharactersInSet(NSCharacterSet.whitespaceAndNewlineCharacterSet())
                 
-                for char in tmpLine {
+                for char in tmpLine.characters {
                     if char == "(" {
                         ++startBracket
                     }
@@ -134,19 +139,24 @@ private class PAssertHelper {
         var location = 0
         var length = 0
         let pattern = ",(\\s*)[==|!=|>|<|>=|<=|===|!==|~=]+(\\s*),(\\s*)"
-        let regexp: NSRegularExpression? = NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions.allZeros, error: nil)
+        let regexp: NSRegularExpression?
+        do {
+            regexp = try NSRegularExpression(pattern: pattern, options: NSRegularExpressionOptions())
+        } catch _ {
+            regexp = nil
+        }
         
         if let regexp = regexp {
-            regexp.enumerateMatchesInString(literal, options: nil, range: NSMakeRange(0, count(literal)),
-                usingBlock: {(result: NSTextCheckingResult!, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
-                    location = result.range.location
-                    length = result.range.length
+            regexp.enumerateMatchesInString(literal, options: [], range: NSMakeRange(0, literal.characters.count),
+                usingBlock: {(result: NSTextCheckingResult?, flags: NSMatchingFlags, stop: UnsafeMutablePointer<ObjCBool>) -> Void in
+                    location = result!.range.location
+                    length = result!.range.length
             })
         }
         
         var indexes: Array<Int> = [0, 0, 0]
-        indexes[0] = count("=> ") + count("PAssert(")
-        indexes[1] = count("=> ") + location + 1
+        indexes[0] = "=> ".characters.count + "PAssert(".characters.count
+        indexes[1] = "=> ".characters.count + location + 1
         indexes[2] = indexes[1] + length - 1 - 2
         
         return indexes
@@ -168,7 +178,7 @@ private class PAssertHelper {
         var chars = ""
         
         if length > 0 {
-            for i in 0..<length {
+            for _ in 0..<length {
                 chars += char
             }
         }
@@ -177,7 +187,7 @@ private class PAssertHelper {
     }
     
     // MARK: - print result
-    private func output<T>(#source: String?, comparison: Bool, lhs: T, rhs: T, fileName: String, lineNumber: Int, function: String) -> String {
+    private func output<T>(source source: String?, comparison: Bool, lhs: T, rhs: T, fileName: String, lineNumber: Int, function: String) -> String {
         
         let title = "=== Assertion Failed ============================================="
         let file = "FILE: \(fileName)"
@@ -206,9 +216,9 @@ private class PAssertHelper {
             rValue = (rValue == "") ? "\"\"" : rValue
             rValue = "\(rValue)"
             
-            var space1 = repeatCharacter(" ", length: indexes[0])
-            var space2 = repeatCharacter(" ", length: indexes[1] - indexes[0])
-            var space3 = repeatCharacter(" ", length: indexes[2] - indexes[1])
+            let space1 = repeatCharacter(" ", length: indexes[0])
+            let space2 = repeatCharacter(" ", length: indexes[1] - indexes[0])
+            let space3 = repeatCharacter(" ", length: indexes[2] - indexes[1])
             
             out += "\(space1)|\(space2)|\(space3)|\n"
             out += "\(space1)|\(space2)|\(space3)\(rValue)\n"

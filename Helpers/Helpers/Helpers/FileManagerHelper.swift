@@ -16,22 +16,25 @@ class FileManagerHelper {
         Path: //Documents/..
     */
     func documentDirectory(path: String = "") -> String {
-        let doc = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0] as! String
-        return doc.stringByAppendingPathComponent(path)
+        let doc: NSString = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)[0]
+        
+        return doc.stringByAppendingPathComponent(path) as String
     }
     
     /**
         Path: //tmp/..
     */
     func tmpDirectory(path: String = "") -> String {
-        let tmp = NSTemporaryDirectory()
-        return tmp.stringByAppendingPathComponent(path)
+        let tmp: NSString = NSTemporaryDirectory()
+        
+        return tmp.stringByAppendingPathComponent(path) as String
     }
     
     /**
         Exists at Path
     */
     func existsAtPath(path: String) -> Bool {
+        
         return manager.fileExistsAtPath(path)
     }
     
@@ -40,28 +43,32 @@ class FileManagerHelper {
     */
     func fileNameList(path: String) -> [String]? {
         
-        if existsAtPath(path) {
+        var list: [String]? = nil
+        
+        if !existsAtPath(path) {
+            return list
+        }
+        
+        do {
+            list = try manager.contentsOfDirectoryAtPath(path)
             
-            let list = manager.contentsOfDirectoryAtPath(path, error: nil)
+            var pathList: [String] = []
+            var i = 0
+            for fileName in list! {
+                let name: String = fileName 
+                ++i
+                let temp: NSString = path as NSString
+                pathList.append(temp.stringByAppendingPathComponent(name) as String)
+            }
             
-            if let list = list {
-                var pathList: [String] = []
-                var i = 0
-                for fileName in list {
-                    let name: String = fileName as! String
-                    ++i
-                    pathList.append(path.stringByAppendingPathComponent(name))
-                }
-                
-                if i == list.count {
-                    return pathList
-                } else {
-                    return nil
-                }
+            if i == list!.count {
+                return pathList
             } else {
                 return nil
             }
-        } else {
+        
+        } catch let error as NSError {
+            print(error)
             return nil
         }
     }
@@ -70,7 +77,18 @@ class FileManagerHelper {
         File Info
     */
     func fileInfo(path: String) -> [NSObject : AnyObject]? {
-        return manager.attributesOfItemAtPath(path, error: nil)
+        
+        var info: [NSObject : AnyObject]? = nil
+        
+        do {
+            info = try manager.attributesOfItemAtPath(path)
+            
+        } catch let error as NSError {
+            print(error)
+            info = nil
+        }
+        
+        return info
     }
     
     /**
@@ -78,32 +96,31 @@ class FileManagerHelper {
     */
     func makeDir(path: String) -> Bool {
         
-        if !existsAtPath(path) {
-            
-            let success = manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil, error: nil)
-            
-            if success {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            return false
+        var success: Bool = false
+        
+        if existsAtPath(path) {
+            return success
         }
+        
+        do {
+            try manager.createDirectoryAtPath(path, withIntermediateDirectories: true, attributes: nil)
+            success = true
+        
+        } catch let error as NSError {
+            print(error)
+            success = false
+        }
+        
+        return success        
     }
     
     /**
         Save Binary File
     */
     func writeFile(path: String, data: NSData) -> Bool {
-        
         let success = data.writeToFile(path, atomically: true)
         
-        if success {
-            return true
-        } else {
-            return false
-        }
+        return  success
     }
     
     /**
@@ -123,22 +140,19 @@ class FileManagerHelper {
     */
     func excludedFromBackup(path: String) -> Bool {
         
-        let url = NSURL.fileURLWithPath(path)
+        var success: Bool = false
         
-        if let url = url {
+        do {
+            let url = NSURL.fileURLWithPath(path)
+            try url.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey)
+            success = true
             
-            let success = url.setResourceValue(NSNumber(bool: true), forKey: NSURLIsExcludedFromBackupKey, error: nil)
-
-            if success {
-                println("Set Excluding \(url.lastPathComponent) From Backup")
-            } else {
-                println("Error Excluding \(url.lastPathComponent) From Backup")
-            }
-            return success
-            
-        } else {
-            return false
+        } catch let error as NSError {
+            print(error)
+            success = false
         }
+        
+        return success
     }
     
     /**
@@ -146,14 +160,22 @@ class FileManagerHelper {
     */
     func remove(path: String) -> Bool {
         
-        if existsAtPath(path) {
-            
-            let success = manager.removeItemAtPath(path, error: nil)
+        var success: Bool = false
+        
+        if !existsAtPath(path) {
             return success
-            
-        } else {
-            return false
         }
+        
+        do {
+            try manager.removeItemAtPath(path)
+            success = true
+        
+        } catch let error as NSError {
+            print(error)
+            success = false
+        }
+        
+        return success
     }
     
     /**
@@ -187,22 +209,22 @@ class FileManagerHelper {
         
         let list = fileNameList(path)
         
-        if let list = list {
-            var pathList: [String] = []
-
-            for filePath in list {
-                if elapsedFileModificationDate(filePath, elapsedTime: elapsedTime) {
-                    let success = remove(filePath)
-                    if success {
-                        pathList.append(filePath)
-                    }
-                }
-            }
-            return pathList
-            
-        } else {
+        guard let fileList = list else {
             return nil
         }
+        
+        var pathList: [String] = []
+        
+        for filePath in fileList {
+            if elapsedFileModificationDate(filePath, elapsedTime: elapsedTime) {
+                let success = remove(filePath)
+                if success {
+                    pathList.append(filePath)
+                }
+            }
+        }
+        
+        return pathList
     }
     
     /**
@@ -216,20 +238,28 @@ class FileManagerHelper {
     */
     func elapsedFileModificationDate(path: String, elapsedTime: NSTimeInterval) -> Bool {
         
-        if existsAtPath(path) {
-            
-            let fileAttribures: NSDictionary = manager.attributesOfItemAtPath(path, error: nil)!
-            
+        var match: Bool = false
+        
+        if !existsAtPath(path) {
+            return match
+        }
+        
+        do {
+            let fileAttribures: NSDictionary = try manager.attributesOfItemAtPath(path)
             let diff = NSDate(timeIntervalSinceNow: 0.0).timeIntervalSinceDate(fileAttribures.fileModificationDate()!)
             
             if elapsedTime < diff {
-                return true
+                match = true
             } else {
-                return false
+                match = false
             }
-        } else {
-            return false
+        
+        } catch let error as NSError {
+            print(error)
+            match = false
         }
+        
+        return match
     }
 
 }
